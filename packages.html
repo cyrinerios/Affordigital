@@ -156,15 +156,20 @@ form.rs .vb{width:100%}
 .env{position:fixed;inset:0;z-index:25;background:radial-gradient(circle at 50% 40%,#2a211b,#120e0b);display:grid;place-items:center;transition:opacity .9s .2s}
 .env.gone{opacity:0;pointer-events:none}
 .envw{position:relative;width:min(86vw,440px);aspect-ratio:1.45;perspective:1200px}
-.envb{position:absolute;inset:0;background:linear-gradient(160deg,#f3e6cc,#d9c39a);border-radius:10px;box-shadow:0 30px 60px -20px #000c}
-.envc{position:absolute;left:6%;right:6%;top:8%;height:84%;background:#fffaf1;border-radius:6px;display:grid;place-items:center;text-align:center;font-family:"Cormorant Garamond",serif;color:#3b2a1a;transition:transform 1.1s .5s cubic-bezier(.3,.7,.2,1);padding:10px}
+.envb{position:absolute;inset:0;z-index:1;background:linear-gradient(160deg,#f3e6cc,#d9c39a);border-radius:10px;box-shadow:0 30px 60px -20px #000c}
+.envc{position:absolute;left:6%;right:6%;top:8%;height:84%;background:#fffaf1;border-radius:6px;display:grid;place-items:center;text-align:center;font-family:"Cormorant Garamond",serif;color:#3b2a1a;transition:transform 1.1s cubic-bezier(.4,0,.2,1);z-index:2;box-shadow:0 -6px 18px -10px #0005;padding:10px}
 .envc .s{font-family:"Great Vibes",cursive;font-size:clamp(34px,8vw,48px);color:#7a5a2a}
-.envf{position:absolute;left:0;right:0;top:0;height:58%;background:linear-gradient(180deg,#e9d8b6,#d4bc8e);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .7s ease;border-radius:10px 10px 0 0;z-index:3}
-.envp{position:absolute;inset:0;clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);background:linear-gradient(160deg,#efdfbf,#d8c299);border-radius:10px;z-index:2}
-.envto{position:absolute;left:0;right:0;bottom:12%;text-align:center;z-index:4;font-family:"Cormorant Garamond",serif;color:#5a4325;font-size:18px}
+.envf{position:absolute;left:0;right:0;top:0;height:58%;background:linear-gradient(180deg,#e9d8b6,#d4bc8e);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top;transition:transform .7s cubic-bezier(.45,0,.3,1),background .3s;border-radius:10px 10px 0 0;z-index:4}
+.envp{position:absolute;inset:0;clip-path:polygon(0 0,50% 58%,100% 0,100% 100%,0 100%);background:linear-gradient(160deg,#efdfbf,#d8c299);border-radius:10px;z-index:3;box-shadow:0 -1px 0 #c9b083 inset}
+.envto{position:absolute;left:0;right:0;bottom:12%;text-align:center;z-index:5;transition:opacity .4s;font-family:"Cormorant Garamond",serif;color:#5a4325;font-size:18px}
 .envto b{display:block;font-family:"Great Vibes",cursive;font-size:30px;font-weight:400;color:#3b2a1a}
-.seal{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#9c2b3a,#5a0f1c);display:grid;place-items:center;color:#f1d38f;font:600 22px "Cormorant Garamond",serif;z-index:5;box-shadow:0 6px 16px -4px #000a;transition:opacity .4s}
-.env.o .envf{transform:rotateX(180deg)}.env.o .seal{opacity:0}.env.o .envc{transform:translateY(-62%)}
+.seal{position:absolute;left:50%;top:58%;transform:translate(-50%,-50%);width:74px;height:74px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#9c2b3a,#5a0f1c);display:grid;place-items:center;color:#f1d38f;font:600 22px "Cormorant Garamond",serif;z-index:6;box-shadow:0 6px 16px -4px #000a;transition:opacity .4s}
+.env.o .envf{transform:rotateX(180deg)}.env.o .seal{opacity:0}.env.o .envto{opacity:0}
+.env.o2 .envf{z-index:0;background:linear-gradient(0deg,#d8c39a,#bfa271)}
+.env.o3 .envc{transform:translateY(-100%)}
+.envw{margin-top:clamp(70px,14vh,140px)}
+.env .tap{transition:opacity .3s}.env.o .tap{opacity:0;pointer-events:none}
+.env.o4 .envc{z-index:7;transform:translateY(-18%) scale(1.08);box-shadow:0 24px 50px -18px #000c;transition:transform .9s cubic-bezier(.3,.7,.2,1),box-shadow .9s}
 .env .tap{margin-top:30px;text-align:center}
 .hero .nm.gold,.foot .sig.gold,.pc .gold{color:transparent}
 .gold{background:linear-gradient(100deg,#b8893a,#f3d58f 40%,#c99a48 60%,#f6e2ab);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -428,7 +433,8 @@ function vLuxury(p){
   <footer class="foot"><div class="sig gold">Layla &amp; Omar</div>Website invitation by AfforDigital</footer>
   <div style="position:fixed;left:50%;transform:translateX(-50%);bottom:78px;z-index:20;background:#0b1a38e6;color:#fff;border-radius:14px;padding:8px 10px;font-size:13px;max-width:calc(100vw - 24px)"><label style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">Preview as guest:<select id="gPick" style="font:inherit;border-radius:8px;padding:6px;min-height:36px">${GUESTS.map((x,i)=>`<option value="${i}"${i===gSel?' selected':''}>${x.to.replace('&amp;','&')}</option>`).join('')}</select></label></div>`,{music:1}),
   ()=>{const env=$('env');
-    $('openB').addEventListener('click',()=>{env.classList.add('o');startMusic([57,61,64,69]);setTimeout(()=>env.classList.add('gone'),1700);setTimeout(()=>{env.remove()},2700)});
+    $('openB').addEventListener('click',()=>{const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;$('openB').disabled=true;env.classList.add('o');startMusic([57,61,64,69]);
+      setTimeout(()=>env.classList.add('o2'),rm?0:700);setTimeout(()=>env.classList.add('o3'),rm?0:760);setTimeout(()=>env.classList.add('o4'),rm?0:1900);setTimeout(()=>env.classList.add('gone'),rm?300:3300);setTimeout(()=>{env.remove()},rm?1300:4300)});
     countdown('cd','2027-02-11T19:30:00+04:00');lightbox('gal',gal,'Photo');
     $('gPick').addEventListener('change',e=>{gSel=+e.target.value;stopMusic();route(true)});
     renderEvents();renderLuxRsvp();renderHost('all','')}]}
