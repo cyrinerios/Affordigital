@@ -105,6 +105,7 @@ textarea{min-height:96px;resize:vertical}
 .tl{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:10px}
 .tl li{display:grid;grid-template-columns:64px minmax(0,1fr);gap:12px;align-items:baseline}
 .tl b{color:var(--gold);font-weight:600;white-space:nowrap}
+.slink{display:block;text-align:center;margin-top:12px;font-weight:600;font-size:15px;color:var(--gold);text-decoration:underline;text-underline-offset:3px}.card.rec .slink{color:var(--gold2)}
 /* tabs */
 .tabs{display:inline-flex;gap:4px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:4px;margin-top:26px;flex-wrap:wrap}
 .tabs button{font:600 15px Jost,sans-serif;border:0;background:none;color:var(--ink);padding:0 20px;min-height:44px;border-radius:999px;cursor:pointer}
@@ -254,7 +255,7 @@ footer .wrap{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between;
 <div id="hub">
 <nav><div class="wrap">
   <a class="logo" href="#top"><img src="logo.jpg" alt="AfforDigital — Strategy, Content, Growth"></a>
-  <div class="links"><a href="#teaser">Teaser</a><a href="#samples">Samples</a><a href="#packages">Packages</a><a href="#corporate">Corporate events</a><a href="#occasions">Occasions</a><a href="#how">How it works</a><a href="#prices">Market prices</a><a href="#faq">FAQ</a></div>
+  <div class="links"><a href="#teaser">Teaser</a><a href="#samples">Samples</a><a href="#packages">Packages</a><a href="packages.html">Package samples</a><a href="#corporate">Corporate events</a><a href="#occasions">Occasions</a><a href="#how">How it works</a><a href="#prices">Market prices</a><a href="#faq">FAQ</a></div>
   <a class="btn" href="#order">Get started</a>
 </div></nav>
 
@@ -347,6 +348,7 @@ footer .wrap{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between;
   <div class="tabs" role="tablist" aria-label="Package type"><button role="tab" id="t-cel" aria-selected="true">Celebrations</button><button role="tab" id="t-corp" aria-selected="false">Corporate events</button></div>
   <div class="pk" id="pk"></div>
   <p class="note" id="pknote"></p>
+  <p style="margin-top:18px"><a class="btn" href="packages.html" style="background:var(--wine);color:#fff">Open a live sample of every package ›</a></p>
 </div></section>
 
 <section class="band corp alt" id="corporate"><div class="wrap">
@@ -457,6 +459,7 @@ footer .wrap{display:flex;gap:20px;flex-wrap:wrap;justify-content:space-between;
 
 <script>
 {
+const SID={'Basic':'basic','Premium':'premium','Luxury':'luxury','Event Starter':'starter','Business':'business','Enterprise':'enterprise'};
 const PK={
  cel:{lead:'Three simple packages for weddings, engagements, birthdays, graduations, baby showers and anniversaries.',note:'Prices in UAE dirhams. Larger guest lists, extra languages or rush delivery can be quoted separately.',items:[
  {n:'Basic',p:149,s:'A beautiful one-page invitation',f:['Beautiful digital invitation','One-page design','Event details and location','WhatsApp sharing']},
@@ -478,7 +481,7 @@ function renderPk(){
   const g=PK[tab];
   $('pklead').textContent=g.lead;$('pknote').textContent=g.note;
   $('t-cel').setAttribute('aria-selected',tab==='cel');$('t-corp').setAttribute('aria-selected',tab==='corp');
-  $('pk').innerHTML=g.items.map(x=>`<div class="card${x.rec?' rec':''}">${x.rec?'<span class="badge">Recommended</span>':''}<h3>${x.n}</h3><div class="price"><small>${x.from?'from AED':'AED'}</small>${x.p}</div><p class="sub">${x.s}</p><ul>${x.f.map(i=>`<li>${i}</li>`).join('')}</ul><a class="btn" href="#order" data-g="${tab}" data-p="${x.n}">Choose ${x.n}</a></div>`).join('');
+  $('pk').innerHTML=g.items.map(x=>`<div class="card${x.rec?' rec':''}">${x.rec?'<span class="badge">Recommended</span>':''}<h3>${x.n}</h3><div class="price"><small>${x.from?'from AED':'AED'}</small>${x.p}</div><p class="sub">${x.s}</p><ul>${x.f.map(i=>`<li>${i}</li>`).join('')}</ul><a class="btn" href="#order" data-g="${tab}" data-p="${x.n}">Choose ${x.n}</a><a class="slink" href="packages.html#${SID[x.n]}">See live sample ›</a></div>`).join('');
 }
 $('t-cel').addEventListener('click',()=>{tab='cel';renderPk()});
 $('t-corp').addEventListener('click',()=>{tab='corp';renderPk()});
